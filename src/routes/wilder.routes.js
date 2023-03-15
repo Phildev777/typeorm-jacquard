@@ -24,7 +24,7 @@ router.post("/create", async (req, res) => {
 router.get("/list", async (req, res) => {
   try {
     const wilderList = await new WilderService().list();
-      res.json(wilderList);
+    res.json(wilderList);
   } catch (err) {
     res.status(500).json({
       success: false,
@@ -60,14 +60,16 @@ router.patch("/update/:id", async (req, res) => {
   const { id } = req.params;
   const { first_name, last_name, email } = req.body;
 
+  //pour tester : console.log ("ID", id);
+  //console.log("INFOS", first_name, last_name,email);
   try {
     const wilder = await new WilderService().update({
       id,
       first_name,
       last_name,
       email,
-    });
-    res.json(wilder);
+    }); // pas de spread ...req.body,
+    res.json(wilder); // retourne le wilder
   } catch (err) {
     res.status(500).json({
       success: false,
@@ -79,7 +81,7 @@ router.patch("/update/:id", async (req, res) => {
 router.post("/assignNote", async (req, res) => {
   const { wilderId, languageId, note } = req.body;
   try {
-    //faire l'assignation
+    //faire l'assignation dans wilder.service
     const result = await new WilderService().assignNote({
       languageId,
       wilderId,
