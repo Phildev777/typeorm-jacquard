@@ -11,7 +11,7 @@ export default class Wilder {
   last_name: string;
   @Column({ unique: true })
   email: string;
-  @OneToMany(() => NoteEntity, (note) => note.wilder)
+  @OneToMany(() => NoteEntity, (notes) => notes.wilder)
   notes?: NoteEntity[];
 }
 

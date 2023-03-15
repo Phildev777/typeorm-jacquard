@@ -13,7 +13,7 @@ export default class Note {
   id: string;
 
   @Column()
-  note?: number;
+  note: number;
   @ManyToOne(() => LanguageEntity, { eager: true, onDelete: "CASCADE" })
   language: LanguageEntity;
 

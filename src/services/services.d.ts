@@ -12,7 +12,7 @@ export interface ILanguageUpdateKey extends LanguageEntity {
 
 export interface IWilderUpdateKey extends WilderEntity {
   [key: string]: string; //permet d'utiliser une variable "string" en tant que clé d'un objet
-  // notes?: NotesEntity[]
+  //notes?: NotesEntity[];
 }
 export interface IFindByRelation {
   language: LanguageEntity;
