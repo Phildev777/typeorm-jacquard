@@ -12,7 +12,7 @@ export default class Wilder {
   @Column({ unique: true })
   email: string;
   @OneToMany(() => NoteEntity, (note) => note.wilder)
-  notes: NoteEntity[];
+  notes?: NoteEntity[];
 }
 
 /* import { EntitySchema } from "typeorm";

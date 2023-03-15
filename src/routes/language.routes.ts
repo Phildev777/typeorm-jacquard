@@ -1,11 +1,15 @@
-import express, { Request, Response, Router } from "express";
+import express, { Router, Request, Response } from "express";
 import LanguageService from "../services/Language.service";
-import { ILanguageCreate } from "./routes.d";
 import LanguageEntity from "../entity/Language.entity";
+import { ILanguageCreate, IParams, ILanguageUpdateData } from "./routes.d";
+
+import { IMessageWithSuccess } from "../services/services.d";
+
 const router: Router = express.Router();
 
 router.post("/create", async (req: Request, res: Response) => {
-  //http://localhost/wilder/create
+  // http://localhost/wilder/create
+
   const { label }: ILanguageCreate = req.body;
   try {
     const language: LanguageEntity = await new LanguageService().createLanguage(
@@ -25,7 +29,7 @@ router.post("/create", async (req: Request, res: Response) => {
 
 router.get("/list", async (req: Request, res: Response) => {
   try {
-    const languageList = await new LanguageService().list();
+    const languageList: LanguageEntity[] = await new LanguageService().list();
     res.json(languageList);
   } catch (err: any) {
     res.status(500).json({
@@ -35,9 +39,9 @@ router.get("/list", async (req: Request, res: Response) => {
   }
 });
 router.get("/find/:id", async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const { id }: IParams = req.params;
   try {
-    const language = await new LanguageService().findById(id);
+    const language: LanguageEntity = await new LanguageService().findById(id);
     res.json(language);
   } catch (err: any) {
     res.status(500).json({
@@ -47,9 +51,10 @@ router.get("/find/:id", async (req: Request, res: Response) => {
   }
 });
 router.delete("/delete/:id", async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const { id }: IParams = req.params;
+
   try {
-    const result = await new LanguageService().delete(id);
+    const result: IMessageWithSuccess = await new LanguageService().delete(id);
     res.json(result);
   } catch (err: any) {
     res.status(500).json({
@@ -59,11 +64,11 @@ router.delete("/delete/:id", async (req: Request, res: Response) => {
   }
 });
 router.patch("/update/:id", async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const { label } = req.body;
+  const { id }: IParams = req.params;
+  const { label }: ILanguageUpdateData = req.body;
 
   try {
-    const language = await new LanguageService().update({
+    const language: LanguageEntity = await new LanguageService().update({
       id,
       label,
     });
